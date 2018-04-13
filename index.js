@@ -1,9 +1,20 @@
 'use strict';
-
+var mysql = require('mysql')
 const express = require('express');
 //const socketIO = require('socket.io');
 const PORT = process.env.PORT || 3000;
 //const INDEX = path.join(__dirname, 'index.html');
+
+var db = mysql.createConnection({
+    host: 'sql12.freemysqlhosting.net',
+    user: 'sql12232016',
+    password: 'RYPIjLf67H',
+    database: 'sql12232016'
+})
+
+db.connect(function(err){
+    if (err) console.log(err)
+})
 
 const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
@@ -12,13 +23,19 @@ var io = require('socket.io').listen(server)
 //const io = socketIO(server);
 var clientCount = 0
 
-
 io.on('connection', (socket) => {
   console.log('Client connected');
    // Socket has connected, increase socket count
     clientCount++
   socket.on('disconnect', () => console.log('Client disconnected'));
   clientCount--
+
+  socket.on('senddata', function(data){
+        db.query('INSERT INTO UserInformation (IMSI, IMEI, NetworkOperator, CellId, Lattitude, Longitude, NetworkType,Available_Wifi_List,Saved_Wifi_List) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)', [data.IMSI, data.IMEI, data.network_operator, data.cell_id, data.lattitude, data.longitude, data.network_type, data.wifi_available, data.wifi_saved])
+		//db.query('INSERT INTO UserInformation (WifiListAvailable) VALUES (?)', data.wifi_list_available)
+		//db.query('INSERT INTO UserInformation (WifiListSaved) VALUES (?)', data.wifi_list_saved)
+		console.log("data sent...")
+    })
 });
 
 
