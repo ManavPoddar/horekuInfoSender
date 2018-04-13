@@ -1,14 +1,15 @@
 'use strict';
 
 const express = require('express');
-const socketIO = require('socket.io');
+//const socketIO = require('socket.io');
 const PORT = process.env.PORT || 3000;
 //const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const io = socketIO(server);
+var io = require('socket.io').listen(server)
+//const io = socketIO(server);
 var clientCount = 0
 
 
