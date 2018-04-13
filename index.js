@@ -1,8 +1,9 @@
 'use strict';
 var mysql = require('mysql')
-const express = require('express');
+var express = require('express');
+var app = express();
 //const socketIO = require('socket.io');
-const PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 //const INDEX = path.join(__dirname, 'index.html');
 
 var db = mysql.createConnection({
@@ -16,8 +17,7 @@ db.connect(function(err){
     if (err) console.log(err)
 })
 
-const server = express()
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+var server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 var io = require('socket.io').listen(server)
 //const io = socketIO(server);
