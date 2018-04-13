@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 var mysql = require('mysql')
 const express = require('express');
 //const socketIO = require('socket.io');
@@ -38,9 +38,9 @@ io.on('connection', (socket) => {
     })
 });
 
+*/
 
-
-/*var mysql = require('mysql')
+var mysql = require('mysql')
 // Let’s make node/socketio listen on port 3000
 var io = require('socket.io').listen(process.env.PORT||3000)
 // Define our db creds
@@ -77,4 +77,3 @@ io.sockets.on('connection', function(socket){
     })
 })
 
-*/
